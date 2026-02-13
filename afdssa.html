@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Prom</title>
+
+<style>
+body {
+  margin:0;
+  height:100vh;
+  font-family:Arial, Helvetica, sans-serif;
+  overflow:hidden;
+  text-align:center;
+  color:white;
+  background:linear-gradient(135deg, #8e0038, #c2185b);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* MAIN PAGE GIFS */
+.gif {
+  position:absolute;
+  width:170px;
+  border-radius:12px;
+}
+
+/* BUTTONS */
+button {
+  font-size:20px;
+  padding:10px 30px;
+  margin:20px;
+  cursor:pointer;
+  border:none;
+  border-radius:8px;
+}
+
+#yes { background:#2ecc71; color:white; }
+#no  { background:#7b1e3c; color:white; position:absolute; }
+
+/* YAY SCREEN */
+#yayScreen {
+  display:none;
+  width:100%;
+  height:100%;
+  padding-top:40px;
+}
+
+#yayText {
+  font-size:65px;
+  animation: pop 0.5s ease forwards, pulse 1.5s ease-in-out infinite 0.5s;
+}
+
+@keyframes pop {
+  0% { transform:scale(0); opacity:0; }
+  100% { transform:scale(1); opacity:1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform:scale(1); }
+  50% { transform:scale(1.1); }
+}
+
+/* GIF GRID */
+.memeGrid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap:20px;
+  width:80%;
+  margin:30px auto;
+}
+
+.memeGrid img {
+  width:100%;
+  border-radius:12px;
+}
+
+/* CONFETTI */
+.confetti {
+  position:fixed;
+  width:6px;
+  height:6px;
+  top:-10px;
+  animation:fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to { transform:translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MAIN PAGE GIFS -->
+<img class="gif" style="top:10%; left:8%;" 
+src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+
+<img class="gif" style="top:15%; right:8%;" 
+src="https://media.giphy.com/media/3oriO6qJiXajN0TyDu/giphy.gif">
+
+<img class="gif" style="bottom:15%; left:12%;" 
+src="https://media.giphy.com/media/l4FGpP4lxGGgK5CBW/giphy.gif">
+
+<img class="gif" style="bottom:12%; right:12%;" 
+src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif">
+
+<div id="main">
+  <h1>Will you be my Prom Date?</h1>
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+</div>
+
+<div id="yayScreen">
+  <h1 id="yayText">YAYYYYYY!</h1>
+
+  <div class="memeGrid">
+    <img src="https://media.tenor.com/7G6GkN7nK9kAAAAC/lets-go.gif">
+    <img src="https://media.tenor.com/0AVbKGY_MxMAAAAC/happy-excited.gif">
+    <img src="https://media.tenor.com/mz8b5Pq6R9kAAAAC/heart-eyes.gif">
+    <img src="https://media.tenor.com/5GmZ7QF8d8MAAAAC/love-hearts.gif">
+    <img src="https://media.tenor.com/8dY3QJkV4f0AAAAC/cute-love.gif">
+  </div>
+</div>
+
+<audio id="music" src="careless.mp3"></audio>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const main = document.getElementById("main");
+const yayScreen = document.getElementById("yayScreen");
+const music = document.getElementById("music");
+
+noBtn.addEventListener("mouseover", function() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+yesBtn.addEventListener("click", function() {
+  main.style.display = "none";
+  yayScreen.style.display = "block";
+  music.play();
+  launchConfetti();
+});
+
+function launchConfetti() {
+  for (let i = 0; i < 40; i++) {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+    confetti.style.backgroundColor =
+      "hsl(" + Math.random() * 360 + ", 100%, 60%)";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
+  }
+}
+</script>
+
+</body>
+</html>
